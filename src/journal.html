@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>TMDB</title>
+  </head>
+  <body>
+    <header></header>
+    <main>
+      <div class="container mx-auto p-4" id="commentar">
+        <h1 class="text-2xl font-bold mb-4">Your Movie Diary</h1>
+        <div id="film-result" class="mb-4"></div>
+        <textarea
+          id="thoughts-textarea"
+          class="w-full p-2 border rounded mb-4"
+          rows="4"
+          placeholder="Type your thoughts here..."
+        ></textarea>
+        <button
+          id="write-thoughts-btn"
+          class="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Save your thoughts
+        </button>
+      </div>
+    </main>
+    <footer></footer>
+  </body>
+  <script src="journal.js"></script>
+</html>
