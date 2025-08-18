@@ -79,16 +79,6 @@ function displayMovies(movies) {
     });
 }
 fetchMovies();
-<<<<<<< HEAD
-//DISPAY SHOWS FUNCTION
-function randomFilmArray(array) {
-    return array.sort(()=>Math.random() - 0.5).slice(0, 4);
-}
-function displayShows(movies) {
-    movies = randomFilmArray(movies);
-    const showContainer = document.getElementById("liveshows");
-    showContainer.innerHTML = "";
-=======
 /**
  * Show 4 films from one random array.
  * @function randomFilmArray
@@ -122,7 +112,6 @@ function displayShows(movies) {
     `;
         return; // Interrompe l'esecuzione della funzione
     }
->>>>>>> main
     movies.forEach((movie)=>{
         const showCard = document.createElement("div");
         showCard.innerHTML = `
@@ -141,10 +130,7 @@ function displayShows(movies) {
               <p class="mt-2 text-[0.9rem]">${movie.overview}</p>
             </a>
     `;
-<<<<<<< HEAD
-=======
         // When we click on the showCard, we want to open the popup
->>>>>>> main
         showCard.addEventListener("click", (e)=>{
             document.getElementById("popup").classList.remove("hidden");
             e.preventDefault();
@@ -154,18 +140,11 @@ function displayShows(movies) {
     });
 }
 const popup = document.getElementById("popup");
-<<<<<<< HEAD
-=======
 // Close button functionality for the popup
->>>>>>> main
 const closeBtn = document.getElementById("popupCloseBtn");
 closeBtn.addEventListener("click", ()=>{
     popup.classList.add("hidden");
 });
-<<<<<<< HEAD
-//POP UP FUNCTION
-function populatePopup(movie) {
-=======
 /**
  * Fills the popup with detailed information about a movie
  * and makes the modal visible.
@@ -185,7 +164,6 @@ function populatePopup(movie) {
  *   popularity: 350
  * });
  */ function populatePopup(movie) {
->>>>>>> main
     currentMovieId = movie.id;
     const titlePopUp = document.querySelector(".info-container h1");
     titlePopUp.textContent = movie.title;
@@ -205,17 +183,6 @@ function populatePopup(movie) {
     popup.classList.remove("hidden");
     loadReviewsForMovie(currentMovieId);
 }
-<<<<<<< HEAD
-// REVIEWS
-const reviewForm = document.getElementById("reviewForm");
-const reviewTextarea = document.getElementById("reviewTexareat");
-const reviewContainer = document.getElementById("reviewContainer");
-let currentMovieId = null;
-function getStorageKey(movieId) {
-    return `reviews_${movieId}`;
-}
-function loadReviewsForMovie(movieId) {
-=======
 //POP UP FUNCTIONALITY
 /**
  * Fills the popup with movie details
@@ -249,7 +216,6 @@ function loadReviewsForMovie(movieId) {
  * Loads and displays reviews for a given movie
  * @param {number} movieId - Movie ID
  */ function loadReviewsForMovie(movieId) {
->>>>>>> main
     const reviews = JSON.parse(localStorage.getItem(getStorageKey(movieId))) || [];
     reviewContainer.innerHTML = "";
     reviews.forEach((review, index)=>{
@@ -257,11 +223,7 @@ function loadReviewsForMovie(movieId) {
         reviewDiv.className = "bg-gray-100 p-3 mb-2 rounded-md flex justify-between items-center";
         reviewDiv.innerHTML = `
       <span class="text-gray-700">${review}</span>
-<<<<<<< HEAD
-      <button class="text-red-500 hover:text-red-700" data-index="${index}">\u{274C}</button>
-=======
       <button class="text-red-500 hover:text-red-700">\u{274C}</button>
->>>>>>> main
     `;
         reviewDiv.querySelector("button").addEventListener("click", ()=>{
             deleteReviewForMovie(movieId, index);
@@ -269,28 +231,12 @@ function loadReviewsForMovie(movieId) {
         reviewContainer.appendChild(reviewDiv);
     });
 }
-<<<<<<< HEAD
-reviewForm.addEventListener("submit", (e)=>{
-    e.preventDefault();
-    const text = reviewTextarea.value.trim();
-    if (text && currentMovieId) {
-        const key = getStorageKey(currentMovieId);
-        const reviews = JSON.parse(localStorage.getItem(key)) || [];
-        reviews.push(text);
-        localStorage.setItem(key, JSON.stringify(reviews));
-        reviewTextarea.value = "";
-        loadReviewsForMovie(currentMovieId);
-    } else alert("Scrivi qualcosa prima di salvare!");
-});
-function deleteReviewForMovie(movieId, index) {
-=======
 /**
  * Deletes a specific review for a movie
  * Updates the UI and localStorage
  * @param {number} movieId - Movie ID
  * @param {number} index - Index of the review to delete
  */ function deleteReviewForMovie(movieId, index) {
->>>>>>> main
     const key = getStorageKey(movieId);
     const reviews = JSON.parse(localStorage.getItem(key)) || [];
     reviews.splice(index, 1);
