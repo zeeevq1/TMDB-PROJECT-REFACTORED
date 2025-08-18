@@ -79,14 +79,39 @@ function displayMovies(movies) {
     });
 }
 fetchMovies();
-//DISPAY SHOWS FUNCTION
-function randomFilmArray(array) {
+/**
+ * Show 4 films from one random array.
+ * @function randomFilmArray
+ * @param {Object[]} array - Complet list of films.
+ * @returns {Object[]} New array with 4 random films.
+ */ function randomFilmArray(array) {
     return array.sort(()=>Math.random() - 0.5).slice(0, 4);
 }
-function displayShows(movies) {
+/**
+ * Show Casual cards into the  "Live Shows" section.
+ *
+ * @function displayShows
+ * @param {Object[]} movies - Films list from dall'API TMDB.
+ * @param {string} movies[].title - Titol of Film.
+ * @param {string} movies[].overview - Description of film.
+ * @param {string} movies[].poster_path - Image for each film from TMDB.
+ *
+ * @example
+ * // Example of how to use displayShows function:
+ * displayShows(moviesArray);
+ */ function displayShows(movies) {
     movies = randomFilmArray(movies);
     const showContainer = document.getElementById("liveshows");
     showContainer.innerHTML = "";
+    // Gestione edge-case: array vuoto o nullo
+    if (!movies || movies.length === 0) {
+        showContainer.innerHTML = `
+      <p class="text-center flex justify-center text-gray-500 mt-4">
+        No movies found.
+      </p>
+    `;
+        return; // Interrompe l'esecuzione della funzione
+    }
     movies.forEach((movie)=>{
         const showCard = document.createElement("div");
         showCard.innerHTML = `
@@ -105,6 +130,7 @@ function displayShows(movies) {
               <p class="mt-2 text-[0.9rem]">${movie.overview}</p>
             </a>
     `;
+        // When we click on the showCard, we want to open the popup
         showCard.addEventListener("click", (e)=>{
             document.getElementById("popup").classList.remove("hidden");
             e.preventDefault();
@@ -114,12 +140,30 @@ function displayShows(movies) {
     });
 }
 const popup = document.getElementById("popup");
+// Close button functionality for the popup
 const closeBtn = document.getElementById("popupCloseBtn");
 closeBtn.addEventListener("click", ()=>{
     popup.classList.add("hidden");
 });
-//POP UP FUNCTION
-function populatePopup(movie) {
+/**
+ * Fills the popup with detailed information about a movie
+ * and makes the modal visible.
+ *
+ * @function populatePopup
+ * @param {Movie} movie - Movie object containing TMDB data.
+ *
+ * @example
+ * // Example usage:
+ * populatePopup({
+ *   id: 123,
+ *   title: "Inception",
+ *   overview: "A mind-bending thriller...",
+ *   release_date: "2010-07-16",
+ *   poster_path: "/abc123.jpg",
+ *   vote_average: 8.8,
+ *   popularity: 350
+ * });
+ */ function populatePopup(movie) {
     currentMovieId = movie.id;
     const titlePopUp = document.querySelector(".info-container h1");
     titlePopUp.textContent = movie.title;
@@ -139,15 +183,39 @@ function populatePopup(movie) {
     popup.classList.remove("hidden");
     loadReviewsForMovie(currentMovieId);
 }
-// REVIEWS
-const reviewForm = document.getElementById("reviewForm");
-const reviewTextarea = document.getElementById("reviewTexareat");
-const reviewContainer = document.getElementById("reviewContainer");
-let currentMovieId = null;
-function getStorageKey(movieId) {
+//POP UP FUNCTIONALITY
+/**
+ * Fills the popup with movie details
+ * Shows title, release year, rating, popularity, poster, and overview
+ * @param {Object} movie - Movie object with properties: id, title, release_date, vote_average, popularity, poster_path, overview
+ */ function populatePopup(movie) {
+    currentMovieId = movie.id;
+    document.querySelector(".info-container h1").textContent = movie.title;
+    document.querySelector("#popup .info-film").innerHTML = `
+    <p class="bg-orange-400 rounded-md px-2 py-1">Release Year: ${movie.release_date}</p>
+  `;
+    const ratingValue = movie.vote_average ? movie.vote_average.toFixed(1) : "N/A";
+    document.querySelector("#popup .pop-container p span").textContent = ratingValue;
+    const popularity = movie.popularity ? Math.round(movie.popularity) : "N/A";
+    document.querySelector("#popup .pop-container .flex.items-center p span").textContent = popularity;
+    const imageElem = document.querySelector(".img-popup");
+    imageElem.src = imageBaseUrl + movie.poster_path;
+    imageElem.alt = movie.title;
+    document.querySelector(".description").textContent = movie.overview;
+    loadReviewsForMovie(currentMovieId);
+}
+//REVIEW FUNCTIONALITY
+/**
+ * Returns the localStorage key for storing reviews of a movie
+ * @param {number} movieId - Movie ID
+ * @returns {string} - Key for localStorage
+ */ function getStorageKey(movieId) {
     return `reviews_${movieId}`;
 }
-function loadReviewsForMovie(movieId) {
+/**
+ * Loads and displays reviews for a given movie
+ * @param {number} movieId - Movie ID
+ */ function loadReviewsForMovie(movieId) {
     const reviews = JSON.parse(localStorage.getItem(getStorageKey(movieId))) || [];
     reviewContainer.innerHTML = "";
     reviews.forEach((review, index)=>{
@@ -155,7 +223,7 @@ function loadReviewsForMovie(movieId) {
         reviewDiv.className = "bg-gray-100 p-3 mb-2 rounded-md flex justify-between items-center";
         reviewDiv.innerHTML = `
       <span class="text-gray-700">${review}</span>
-      <button class="text-red-500 hover:text-red-700" data-index="${index}">\u{274C}</button>
+      <button class="text-red-500 hover:text-red-700">\u{274C}</button>
     `;
         reviewDiv.querySelector("button").addEventListener("click", ()=>{
             deleteReviewForMovie(movieId, index);
@@ -163,19 +231,12 @@ function loadReviewsForMovie(movieId) {
         reviewContainer.appendChild(reviewDiv);
     });
 }
-reviewForm.addEventListener("submit", (e)=>{
-    e.preventDefault();
-    const text = reviewTextarea.value.trim();
-    if (text && currentMovieId) {
-        const key = getStorageKey(currentMovieId);
-        const reviews = JSON.parse(localStorage.getItem(key)) || [];
-        reviews.push(text);
-        localStorage.setItem(key, JSON.stringify(reviews));
-        reviewTextarea.value = "";
-        loadReviewsForMovie(currentMovieId);
-    } else alert("Scrivi qualcosa prima di salvare!");
-});
-function deleteReviewForMovie(movieId, index) {
+/**
+ * Deletes a specific review for a movie
+ * Updates the UI and localStorage
+ * @param {number} movieId - Movie ID
+ * @param {number} index - Index of the review to delete
+ */ function deleteReviewForMovie(movieId, index) {
     const key = getStorageKey(movieId);
     const reviews = JSON.parse(localStorage.getItem(key)) || [];
     reviews.splice(index, 1);
