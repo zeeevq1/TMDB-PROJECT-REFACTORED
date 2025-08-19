@@ -367,3 +367,42 @@ document.getElementById("random-film-btn").onclick = async function () {
     document.getElementById("film-result").innerHTML = "Error fetching movies.";
   }
 };
+
+// Enable navigation from the static "Films" section to the journal page
+(function enableStaticFilmsNavigation() {
+  try {
+    const toSlug = (text) =>
+      String(text || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)+/g, "");
+
+    const filmArticles = document.querySelectorAll("feature section article");
+    if (!filmArticles || filmArticles.length === 0) return;
+
+    filmArticles.forEach((article) => {
+      const img = article.querySelector("img");
+      const titleEl = article.querySelector("span");
+      const descEl = article.querySelector("p");
+      const title = titleEl ? titleEl.textContent.trim() : "Untitled";
+      const posterUrl = img ? img.src : "";
+      const overview = descEl ? descEl.textContent.trim() : "";
+      const movie = {
+        id: `static_${toSlug(title)}`,
+        title,
+        poster_path: posterUrl, // journal.js will handle full URLs
+        poster_url: posterUrl,
+        release_date: "",
+        overview,
+      };
+
+      article.style.cursor = "pointer";
+      article.addEventListener("click", () => {
+        localStorage.setItem("selectedMovie", JSON.stringify(movie));
+        window.location.href = "journal.html";
+      });
+    });
+  } catch (err) {
+    // No-op: static films section might not exist on some pages
+  }
+})();

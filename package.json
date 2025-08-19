@@ -5,6 +5,7 @@
   "source": "src/index.html",
   "scripts": {
     "start": "parcel serve src/index.html src/journal.html src/favorites.html",
+    "dev": "parcel serve src/index.html src/journal.html src/favorites.html",
     "build": "parcel build src/index.html src/journal.html src/favorites.html",
     "tailwind:build": "tailwindcss -i ./src/styles/main.css -o ./dist/tailwind.css --watch"
   },
