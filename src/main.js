@@ -37,11 +37,17 @@ async function fetchMovies() {
     const res = await fetch(apiUrl);
     const data = await res.json();
     const movies = data.results;
-    displayMovies(data.results);
+
+    // Se non ci sono film
+    if (!movies || movies.length === 0) {
+      displayShows([]); // forza il messaggio "No movies found"
+      return;
+    }
     displayMovies(movies);
     displayShows(movies);
   } catch (error) {
     console.error("Error fetching movies:", error);
+    displayShows([]);
   }
 }
 
@@ -128,14 +134,21 @@ function displayShows(movies) {
   const showContainer = document.getElementById("liveshows");
   showContainer.innerHTML = "";
 
-  // Gestione edge-case: array vuoto o nullo
+  // Gestione edge-case: array empty or null
   if (!movies || movies.length === 0) {
+    showContainer.classList.remove("grid");
     showContainer.innerHTML = `
-      <p class="text-center flex justify-center text-gray-500 mt-4">
-        No movies found.
-      </p>
+      <div class="flex flex-col  p-20 items-center justify-center text-gray-500 mt-6">
+        <img 
+          src="../img/scared.jpg" 
+          alt="No movies" 
+          class="w-[70rem] h-[30rem] object-scale-down rounded-lg mb-4 max-[910px]:w-[1000px] max-[910px]:h-[350px] max-[910px]:object-cover max-[910px]:object-center"
+        />
+        <p class="text-2xl font-semibold">Oops! No movies found</p>
+        <p class="text-md text-gray-600 mt-2">Please try again later, the API might be offline..</p>
+      </div>
     `;
-    return; // Interrompe l'esecuzione della funzione
+    return;
   }
 
   movies.forEach((movie) => {
