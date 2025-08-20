@@ -14,7 +14,7 @@
 <body class="bg-gradient-to-b from-pink-50 via-purple-100 to-white text-gray-800">
 
   <header class=" bg-gradient-to-r from-pink-200 via-white to-sky-200 bg-opacity-90 backdrop-filter backdrop-blur text-black py-4 shadow-lg fixed top-0 left-0 w-full z-50 transition">
-  <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
+   <div class="max-w-7xl mx-auto px-4 flex items-center justify-between">
     <div class="flex items-center space-x-2">
       <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney Logo" class="h-8 md:h-10">
       <span class="text-xl md:text-2xl font-bold">Disney+</span>
@@ -23,8 +23,8 @@
       <a href="index.html" class="hover:text-pink-500 transition">Home</a>
       <a href="favorites.html" class="hover:text-pink-500 transition">My Favorites</a>
     </nav>
-  </div>
-</header>
+   </div>
+  </header>
 
 
   <div class="h-12"></div>
@@ -49,7 +49,7 @@
   
 
   
-      <section class="shop px-[6rem] max-[1343px]:px-[2rem]">
+  <section class="shop px-[6rem] max-[1343px]:px-[2rem]">
         <h1 class="text-center text-[1.7rem] mb-6 ">Shop</h1>
         <a
           href="#"
@@ -238,11 +238,11 @@
       </div>
     </section>
 
-    <feature class="bg-gray-100 grid grid-rows-1 px-4 py-8 rounded-2xl max-w-7xl mx-auto mt-16 mb-12"> <!--this is film part from hua-->
+    <feature class="bg-gray-100 grid grid-rows-1 py-10 rounded-2xl mx-[6rem] max-[910px]:mx-[2rem] mt-12 mb-12 shadow-md"> <!--this is film part from hua-->
         <header class="flex justify-center items-center w-full md:mb-0">
           <h2 class="text-4xl" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">Films</h2>
         </header>
-        <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 py-6">
+        <section class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 sm:gap-8 md:gap-10 py-6">
           <article class="bg-white rounded-lg shadow p-2 flex flex-col items-center">
             <img src="https://lumiere-a.akamaihd.net/v1/images/image_9ca31b20.jpeg?region=0,0,540,810&width=160" alt="filmposter of elio" class="mb-2 rounded w-full object-cover">
             <span class="text-center font-semibold">Elio</span>
@@ -276,33 +276,37 @@
         </section>
     </feature>
    
-    <section class="bg-white flex flex-col items-center justify-center rounded-lg px-4 py-12 mx-auto max-w-7xl mt-16"> <!--this is random a film part from hua-->
-      <h1 class="md:text-5xl font-bold text-black text-center mb-8 leading-tight" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">
+    <section class="bg-gradient-to-br from-pink-200 via-purple-50 to-purple-200 flex flex-col items-center justify-center rounded-2xl overflow-hidden px-6 sm:px-10 md:px-16 py-12 md:py-16 mt-16 mb-20 shadow-md mx-[6rem] max-[910px]:mx-[2rem]"> <!--this is random a film part from hua-->
+      <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-black text-center mb-8 md:mb-10 leading-tight" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">
         Using your favourite movie to keep record your diary
       </h1>
-      <button id="random-film-btn" class="flex items-center gap-2 bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-600 transition" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">Random Film
-      <img src="../img/randomicon.svg" alt="icon of random" width="24" height="24" class="inline-block">
+      <button id="random-film-btn" class="flex items-center gap-3 bg-black text-white px-8 sm:px-10 md:px-12 py-4 md:py-5 text-lg md:text-xl rounded-xl hover:bg-gray-700 transition" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">Random Film
+      <img src="../img/randomicon.svg" alt="icon of random" width="28" height="28" class="inline-block">
       </button>
-      <div id="film-result" class="mt-6 text-center"></div>
+      <div id="film-result" class="mt-8 md:mt-10 w-full max-w-5xl text-center px-4"></div>
     </section>
   
-    <section class="w-full max-w-7xl mx-auto px-4 mt-16 mb-20"> <!--this part is mehr von disney from hua-->
+    <section class="mx-[6rem] max-[910px]:mx-[2rem] mt-16 mb-20">
+      <!--this part is mehr von disney from hua-->
       <header class="flex justify-center items-center mb-4 py-4 :mb-0">
-          <h2 lass="text-4xl" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">Mehr von Disney</h2>
+          <h2 class="text-4xl" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">Mehr von Disney</h2>
       </header>
-      <div src=" " class="flex flex-col items-center justify-center h-100 bg-blue-700 text-white p-6 rounded-lg shadow-md">
-        jetzt anmelden um mehr über Disney zu erfahren!
-        <button class="bg-white text-black px-4 py-2 rounded hover:bg-blue-100 transition">
+      <div class="flex flex-col items-center justify-center w-full text-4xl max-w-8xl text-white p-8 sm:p-10 md:p-12 rounded-xl shadow-md mx-auto bg-cover bg-center bg-no-repeat min-h-[280px] sm:min-h-[360px]" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal; background-image: linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.35)), url('../img/disney-hotel.jpg');">
+        <h3>Jetzt anmelden um mehr über Disney zu erfahren!</h3>
+        <div class="h-12"></div>
+        <button class="flex items-center gap-3 bg-black text-white px-8 sm:px-10 md:px-12 py-4 md:py-5 text-lg md:text-xl rounded-xl hover:bg-gray-700 transition" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">
             Sei Teil der Familie
         </button>
       </div>
     </section>
     </main>
-    <footer class="border-t border-gray-200 mt-16 py-8 max-w-7xl mx-auto px-4"><!--this is from hua-->
+    <footer class="border-t border-gray-200 mt-16 py-10 mx-[6rem] max-[910px]:mx-[2rem] px-4 rounded-2xl"><!--this is footer from hua-->
       <header class="flex justify-center items-center mb-4 md:mb-0">
-        <h2 lass="text-4xl" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">Disney</h2>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/3/3e/Disney%2B_logo.svg" alt="Disney Logo" class="h-8 md:h-10">
+        <h2 class="text-2xl px-4">Disney</h2>
+        <div class="h-12"></div>
       </header>
-      <nav class="flex flex-wrap justify-center gap-4 px-4">
+      <nav class="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8 px-2 sm:px-4 text-sm sm:text-base">
         <a href="#" class="text-gray-600 hover:text-blue-600 transition">Hilfe</a>
         <a href="#" class="text-gray-600 hover:text-blue-600 transition">Anmelden</a>
         <a href="#" class="text-gray-600 hover:text-blue-600 transition">Seitenverzeichnis</a>
@@ -315,7 +319,7 @@
         <a href="#" class="text-gray-600 hover:text-blue-600 transition">Disney Advertising</a>
         <a href="#" class="text-gray-600 hover:text-blue-600 transition">The Walt Disney Company</a>
     </footer> 
-  </body>
+</body>
 
 
 </html>

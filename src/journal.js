@@ -79,6 +79,22 @@ function saveCommentForMovie(movieId, text) {
 }
 
 /**
+ * Delete a comment by index for the given movie and persist to localStorage.
+ * @param {string|number} movieId
+ * @param {number} index
+ * @returns {void}
+ */
+function deleteCommentForMovie(movieId, index) {
+  const map = getThoughtsMap();
+  const existing = getCommentsForMovie(movieId);
+  if (index >= 0 && index < existing.length) {
+    existing.splice(index, 1);
+    map[movieId] = existing;
+    localStorage.setItem(THOUGHTS_STORAGE_KEY, JSON.stringify(map));
+  }
+}
+
+/**
  * Ensure a container exists for rendering the comments list.
  * @returns {HTMLElement}
  */
@@ -108,10 +124,11 @@ function renderComments() {
   }
   const items = comments
     .map(
-      (t) =>
-        `<li class=\"bg-gray-100 p-3 rounded-md\">${
-          t.replace(/</g, "&lt;").replace(/>/g, "&gt;")
-        }</li>`
+      (t, i) =>
+        `<li class=\"bg-gray-100 p-3 rounded-md flex items-center justify-between\">`
+        + `<span>${t.replace(/</g, "&lt;").replace(/>/g, "&gt;")}</span>`
+        + `<button class=\"text-red-500 hover:text-red-700 ml-3\" data-delete-index=\"${i}\" aria-label=\"Delete comment\">❌</button>`
+        + `</li>`
     )
     .join("");
   container.innerHTML = `
@@ -142,3 +159,30 @@ document.getElementById("write-thoughts-btn").onclick = function () {
 
 // Initial render of existing comments on page load
 renderComments();
+
+// Event delegation for deleting comments
+(() => {
+  if (!selectedMovie) return;
+  const container = ensureCommentsContainer();
+  container.addEventListener("click", (e) => {
+    const btn = e.target.closest("button[data-delete-index]");
+    if (!btn) return;
+    const idx = Number(btn.getAttribute("data-delete-index"));
+    if (Number.isNaN(idx)) return;
+    deleteCommentForMovie(selectedMovie.id, idx);
+    renderComments();
+  });
+})();
+
+// --- Back button navigation ---
+(() => {
+  const backBtn = document.getElementById("back-btn");
+  if (!backBtn) return;
+  backBtn.addEventListener("click", () => {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = "index.html";
+    }
+  });
+})();

@@ -319,11 +319,11 @@ document.getElementById("random-film-btn").onclick = async function () {
     const randomMovie = movies[Math.floor(Math.random() * movies.length)];
     document.getElementById("film-result").innerHTML = `
       <div class="flex flex-col items-center">
-        <img src="https://image.tmdb.org/t/p/w300${randomMovie.poster_path}" alt="${randomMovie.title}" class="mb-4 rounded shadow-lg" />
-        <h2 class="text-2xl font-bold mb-2">${randomMovie.title}</h2>
-        <p class="text-gray-700 mb-2">${randomMovie.release_date}</p>
-        <p class="text-gray-600 max-w-md">${randomMovie.overview}</p>
-        <button id="write-thoughts-btn" class="mt-4 bg-purple-600 text-white px-4 py-2 rounded hover:bg-purple-800 transition">Write your thoughts</button>
+        <img src="https://image.tmdb.org/t/p/w500${randomMovie.poster_path}" alt="${randomMovie.title}" class="mb-6 rounded-xl shadow-xl w-full max-w-md sm:max-w-lg md:max-w-2xl" />
+        <h2 class="text-3xl md:text-4xl font-bold mb-3">${randomMovie.title}</h2>
+        <p class="text-gray-700 mb-2 text-lg">${randomMovie.release_date}</p>
+        <p class="text-gray-600 max-w-2xl leading-relaxed">${randomMovie.overview}</p>
+        <button id="write-thoughts-btn" class="flex items-center gap-3 bg-black text-white px-8 sm:px-10 md:px-12 py-4 md:py-5 text-lg md:text-xl rounded-xl hover:bg-gray-700 transition mt-6" style="font-family: 'MuseoModerno', sans-serif; font-weight: 700; font-style: normal;">Write your thoughts</button>
       </div>
     `;
 
