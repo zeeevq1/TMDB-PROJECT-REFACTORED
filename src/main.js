@@ -38,9 +38,9 @@ async function fetchMovies() {
     const data = await res.json();
     const movies = data.results;
 
-    // Se non ci sono film
+    // If movies don't exist or have 0 elemnts inside.
     if (!movies || movies.length === 0) {
-      displayShows([]); // forza il messaggio "No movies found"
+      displayShows([]); // "No movies found (exmpty array"
       return;
     }
     displayMovies(movies);
@@ -134,7 +134,7 @@ function displayShows(movies) {
   const showContainer = document.getElementById("liveshows");
   showContainer.innerHTML = "";
 
-  // Gestione edge-case: array empty or null
+  // Handle  edge-case: array empty or null
   if (!movies || movies.length === 0) {
     showContainer.classList.remove("grid");
     showContainer.innerHTML = `
@@ -145,7 +145,7 @@ function displayShows(movies) {
           class="w-[70rem] h-[30rem] object-scale-down rounded-lg mb-4 max-[910px]:w-[1000px] max-[910px]:h-[350px] max-[910px]:object-cover max-[910px]:object-center"
         />
         <p class="text-2xl font-semibold">Oops! No movies found</p>
-        <p class="text-md text-gray-600 mt-2">Please try again later, the API might be offline..</p>
+        <p class="text-md text-gray-600 mt-2">Please try again later, the API might be offline or doens't work..</p>
       </div>
     `;
     return;
@@ -191,6 +191,8 @@ closeBtn.addEventListener("click", () => {
   popup.classList.add("hidden");
 });
 
+//POP UP FUNCTIONALITY
+
 /**
  * Fills the popup with detailed information about a movie
  * and makes the modal visible.
@@ -214,14 +216,17 @@ function populatePopup(movie) {
   currentMovieId = movie.id;
 
   const titlePopUp = document.querySelector(".info-container h1");
+  // Title of the movie in the popup
   titlePopUp.textContent = movie.title;
 
+  // Release year of the movie in the popup
   const year = movie.release_date;
   const infoFilm = document.querySelector("#popup .info-film");
   infoFilm.innerHTML = `
     <p class="bg-orange-400 rounded-md px-2 py-1">Release Year: ${year}</p>
   `;
 
+  // Rating of the movie in the popup
   const ratingValue = movie.vote_average
     ? movie.vote_average.toFixed(1)
     : "N/A";
@@ -234,6 +239,7 @@ function populatePopup(movie) {
     "#popup .pop-container .flex.items-center.gap-2 p.text-gray-500 span"
   ).textContent = popularity;
 
+  // Poster image of the movie in the popup
   const imageElem = document.querySelector(".img-popup");
   imageElem.src = imageBaseUrl + movie.poster_path;
   imageElem.alt = movie.title;
@@ -241,41 +247,6 @@ function populatePopup(movie) {
   document.querySelector(".description").textContent = movie.overview;
 
   popup.classList.remove("hidden");
-
-  loadReviewsForMovie(currentMovieId);
-}
-
-//POP UP FUNCTIONALITY
-
-/**
- * Fills the popup with movie details
- * Shows title, release year, rating, popularity, poster, and overview
- * @param {Object} movie - Movie object with properties: id, title, release_date, vote_average, popularity, poster_path, overview
- */
-function populatePopup(movie) {
-  currentMovieId = movie.id;
-
-  document.querySelector(".info-container h1").textContent = movie.title;
-  document.querySelector("#popup .info-film").innerHTML = `
-    <p class="bg-orange-400 rounded-md px-2 py-1">Release Year: ${movie.release_date}</p>
-  `;
-
-  const ratingValue = movie.vote_average
-    ? movie.vote_average.toFixed(1)
-    : "N/A";
-  document.querySelector("#popup .pop-container p span").textContent =
-    ratingValue;
-
-  const popularity = movie.popularity ? Math.round(movie.popularity) : "N/A";
-  document.querySelector(
-    "#popup .pop-container .flex.items-center p span"
-  ).textContent = popularity;
-
-  const imageElem = document.querySelector(".img-popup");
-  imageElem.src = imageBaseUrl + movie.poster_path;
-  imageElem.alt = movie.title;
-
-  document.querySelector(".description").textContent = movie.overview;
 
   loadReviewsForMovie(currentMovieId);
 }
